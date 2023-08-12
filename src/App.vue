@@ -1,13 +1,15 @@
 <template >
-    <div class="#app">
+    <div id="wrap">
+        <weatherMain />
     </div>
 </template>
 
 <script setup lang='ts'>
+import weatherMain from './components/weatherMain.vue';
 </script>
 
 <style>
-.app {
-    backround: black,
+.wrap {
+    background-color: black,
 }
 </style>

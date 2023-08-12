@@ -7,9 +7,6 @@
     "allowJs": true,
     "moduleResolution": "node"
   },
-  "files": [
-    "src/index.ts"
-  ],
   "include": [
     "src/**/*.ts",
     "src/**/*.vue"
