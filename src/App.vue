@@ -1,11 +1,14 @@
 <template >
     <div id="wrap">
-        <weatherMain />
+        <MainView />
     </div>
 </template>
 
 <script setup lang='ts'>
-import weatherMain from './components/weatherMain.vue';
+import MainView from './views/weatherMain.vue';
+
+
+
 </script>
 
 <style>
