@@ -5,9 +5,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { VueLoaderPlugin } = require('vue-loader');
 
-// eslint-disable-next-line no-new
-new VueLoaderPlugin();
-
 const isProduction = process.env.NODE_ENV === 'production';
 
 const stylesHandler = isProduction ? MiniCssExtractPlugin.loader : 'style-loader';
@@ -25,6 +22,7 @@ const config = {
     new HtmlWebpackPlugin({
       template: 'index.html',
     }),
+    new VueLoaderPlugin(),
 
     // Add your plugins here
     // Learn more about plugins from https://webpack.js.org/configuration/plugins/
@@ -54,6 +52,10 @@ const config = {
       {
         test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/i,
         type: 'asset',
+      },
+      {
+        test: /\.js$/,
+        use: 'babel-loader',
       },
 
       // Add your rules for custom modules here
