@@ -5,10 +5,9 @@
 </template>
 
 <script setup lang='ts'>
-import MainView from './views/weatherMain.vue';
+import MainView from './views/MainView.vue';
 
-
-
+//написать енам для стейта
 </script>
 
 <style>
@@ -16,3 +15,4 @@ import MainView from './views/weatherMain.vue';
     background-color: black,
 }
 </style>
+

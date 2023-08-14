@@ -5,6 +5,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { VueLoaderPlugin } = require('vue-loader');
 const webpack = require('webpack');
+const Dotenv = require('dotenv-webpack');
 
 const isProduction = process.env.NODE_ENV === 'production';
 
@@ -20,6 +21,9 @@ const config = {
     host: 'localhost',
   },
   plugins: [
+    new Dotenv(/* {
+      path: './.env.${env}',
+    } */),
     new HtmlWebpackPlugin({
       template: 'index.html',
     }),
@@ -75,7 +79,7 @@ module.exports = () => {
   if (isProduction) {
     config.mode = 'production';
 
-    config.plugins.push(new MiniCssExtractPlugin());
+    config.plugins.push(new MiniCssExtractPlugin()); // Добавить uglifyJS webpackCleanPlugin
   } else {
     config.mode = 'development';
   }
