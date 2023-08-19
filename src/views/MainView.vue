@@ -30,7 +30,6 @@ function openSettings() {
 }
 
 function newCity(city: City) {
-    console.log(city.lat, city.lon)
     const loc: Location = { latitude: city.lat, longitude: city.lon }
     locations.value.push(loc)
 }

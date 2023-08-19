@@ -8,6 +8,7 @@ export interface City {
     country: string
     state: string
     id?: number
+    describe?: string
 }
 
 export interface LocalNames {

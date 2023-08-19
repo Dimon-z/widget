@@ -1,51 +1,48 @@
 <template >
     <div>
-        <input list="cityList" v-model="city" type="text" @keyup="getCity">
+        <input list="cityList" v-model="cityInput" @keyup="getCity" @focusout="emit(`addCity`, selectedCity)">
         <datalist id="cityList">
-            <option v-for="option in options" v-bind:value="option.name">
-                {{ option.name + ' ' + option.country }}
+            <option v-for="option in options" v-bind:value="option.describe">
+                {{ option.describe }}
             </option>
         </datalist>
-        <button @click="$emit('addCity', city)">Ок!</button>
     </div>
 </template>
 
 <script setup lang='ts'>
-import { ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 import type Location from '../types/Location'
 import { Weather } from '../types/Weather';
 import { City, Root } from '../types/City';
 
-const city = ref<City>()
-const selected = ref()
+const cityInput = ref()
 const options = ref([])
 
+const selectedCity = computed(() => {
+    return options.value.find((el) => el.describe == cityInput.value)
+})
+
 async function getCity() {
-    if (!city.value) {
+    if (!cityInput.value) {
         options.value = []
         return
     }
-    const result = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=` + `${city.value}` + `&limit=5&appid=` + `${process.env.OPENWEATHER_API_KEY}`)
+    const result = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=` + `${cityInput.value}` + `&limit=5&appid=` + `${process.env.OPENWEATHER_API_KEY}`)
     const response: Array<City> = await result.json()
-    response.forEach((el, i) => {
-        el.id = i
+    response.forEach((el) => {
+        el.describe = `${el.name + ' ' + el.country + ' ' + el.state}`
     });
     options.value = [...response]
 }
-/* function addCoords(): void {
-    console.log(city)
-    emit { latitude: city.value.lat, longitude: city.value.lon }
-}
- */
 
-const log = () => console.log(city.value)
+const log = (e: any) => console.log(e)
 
 defineProps<{
     loc: Array<Location>
 }>()
 
-defineEmits<{
-    (e: 'addCity', city: Location): void
+const emit = defineEmits<{
+    (e: 'addCity', city: City): void
 }>()
 </script>
 
