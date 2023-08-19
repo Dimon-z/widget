@@ -12,7 +12,7 @@ import { ref } from 'vue';
 import WeatherError from '../components/WeatherError.vue'
 import WeatherInfo from '../components/WeatherInfo.vue'
 import WeatherLoading from '../components/WeatherLoading.vue'
-import useWeather from '../hooks/UseWeather'
+/* import useWeather from '../hooks/UseWeather' */
 import type Location from '../types/Location'
 
 
@@ -25,7 +25,7 @@ const props = defineProps<{
 }>()
 
 
-useWeather(props.loc)
+/* useWeather(props.loc) */
 
 </script>
 
