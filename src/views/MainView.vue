@@ -22,9 +22,9 @@ const appState = ref('main')
 const state = ref(true)
 const locations = ref([{ latitude: 123, longitude: 341 }])
 console.log(locations.value)
-useGeolocation()
+/* useGeolocation()
     .then(data => locations.value.push(data))
-
+ */
 function openSettings() {
     state.value = !state.value
 }
@@ -33,8 +33,6 @@ function newCity(city: City) {
     const loc: Location = { latitude: city.lat, longitude: city.lon }
     locations.value.push(loc)
 }
-
-
 
 
 </script>

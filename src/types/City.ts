@@ -1,4 +1,4 @@
-export type Root = City[]
+export type Cities = City[]
 
 export interface City {
     name: string
