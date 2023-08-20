@@ -4,7 +4,9 @@
         <WeatherInfo v-else-if="weatherState === 'sucess'" :="state" />
         <WeatherError v-else-if="weatherState === 'error'" :="state" />
     </div> -->
-    {{ loc }}
+    <div v-for="city in locations">
+        {{ city.name }}
+    </div>
 </template>
 
 <script setup lang='ts'>
@@ -14,14 +16,15 @@ import WeatherInfo from '../components/WeatherInfo.vue'
 import WeatherLoading from '../components/WeatherLoading.vue'
 /* import useWeather from '../hooks/UseWeather' */
 import type Location from '../types/Location'
+import { Cities } from '../types/City';
 
 
 const weatherState = ref('loading');
 
 //if в локалсторадже насрано то мы не вызываем
-// в локалсторадже храним города в виде координат
+// в локалсторадже храним города в виде координат(зачеркнуто) городов
 const props = defineProps<{
-    loc: Array<Location>
+    locations: Cities
 }>()
 
 

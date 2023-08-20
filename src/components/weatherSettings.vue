@@ -8,8 +8,8 @@
             </option>
         </datalist>
     </div>
-    <div v-for="city in loc">
-
+    <div v-for="city in locations" class="cityCards">
+        <cityCard :city="city" />
     </div>
 </template>
 
@@ -19,6 +19,7 @@ import type Location from '../types/Location'
 import { Weather } from '../types/Weather';
 import { City, Cities } from '../types/City';
 import _ from 'lodash'
+import cityCard from './CityCard.vue'
 
 const cityInput = ref()
 const options = ref([])
@@ -46,7 +47,7 @@ async function getCity() {
 const log = (e: any) => console.log(e)
 
 defineProps<{
-    loc: Array<Location>
+    locations: Cities
 }>()
 
 const emit = defineEmits<{
@@ -54,4 +55,17 @@ const emit = defineEmits<{
 }>()
 </script>
 
-<style scoped></style>
+<style  scoped lang="scss">
+.cityCards {
+    display: flex;
+    flex-direction: column;
+}
+
+div {
+    color: rgb(27, 19, 70);
+
+    input {
+        width: 250px;
+    }
+}
+</style>
