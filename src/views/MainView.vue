@@ -13,12 +13,8 @@
 import { computed, ref } from 'vue';
 import WeatherMain from '../components/WeatherMain.vue'
 import WeatherSettings from '../components/WeatherSettings.vue'
-import useGeolocation from '../hooks/UseGeolocation'
 import { Cities, City } from '../types/City';
-import Location from '../types/Location';
 
-const image = ref()
-const appState = ref('main')
 const state = ref(true)
 const locations = ref<Cities>([{
     "name": "City of London",
@@ -39,24 +35,25 @@ const locations = ref<Cities>([{
     "lat": 51.5156177,
     "lon": -0.0919983,
     "country": "GB",
-    "state": "England"
+    "state": "England",
+    "id": 100500
 },])
-console.log(locations.value)
+
 /* useGeolocation()
     .then(data => locations.value.push(data))
  */
-function openSettings() {
+function openSettings(): void {
     state.value = !state.value
 }
 
-function newCity(city: City) {
+function newCity(city: City): void {
     locations.value.push(city)
 }
 
 
 </script>
 
-<style scoped>
+<style scoped >
 button {
     cursor: pointer;
 }

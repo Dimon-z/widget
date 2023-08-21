@@ -8,33 +8,32 @@
             </option>
         </datalist>
     </div>
-    <div v-for="city in locations" class="cityCards">
+    <div v-for="city in locations" class="cityCards" :key="city.id">
         <cityCard :city="city" />
     </div>
 </template>
 
 <script setup lang='ts'>
-import { computed, ref, watch } from 'vue';
-import type Location from '../types/Location'
-import { Weather } from '../types/Weather';
+import { computed, ref } from 'vue';
 import { City, Cities } from '../types/City';
 import _ from 'lodash'
 import cityCard from './CityCard.vue'
 
-const cityInput = ref()
+const cityInput = ref<string>()
 const options = ref([])
 
 const selectedCity = computed(() => {
     return options.value.find((el) => el.describe == cityInput.value)
 })
 
-const debouncedGetCity = () => _.debounce(getCity, 800, { maxWait: 1000 })()
+const debouncedGetCity = _.debounce(getCity, 1200)
 
 async function getCity() {
     if (!cityInput.value) {
         options.value = []
         return
     }
+    console.log('calling')
     const result = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=` + `${cityInput.value}` + `&limit=5&appid=` + `${process.env.OPENWEATHER_API_KEY}`)
     const response: Cities = await result.json()
     response.forEach((el, i) => {
@@ -43,8 +42,6 @@ async function getCity() {
     });
     options.value = [...response]
 }
-
-const log = (e: any) => console.log(e)
 
 defineProps<{
     locations: Cities
@@ -55,7 +52,7 @@ const emit = defineEmits<{
 }>()
 </script>
 
-<style  scoped lang="scss">
+<style scoped   lang="scss">
 .cityCards {
     display: flex;
     flex-direction: column;
@@ -65,7 +62,8 @@ div {
     color: rgb(27, 19, 70);
 
     input {
-        width: 250px;
+        width: 300px;
+        padding: 4px;
     }
 }
 </style>

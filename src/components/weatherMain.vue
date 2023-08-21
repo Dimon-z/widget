@@ -4,8 +4,8 @@
         <WeatherInfo v-else-if="weatherState === 'sucess'" :="state" />
         <WeatherError v-else-if="weatherState === 'error'" :="state" />
     </div> -->
-    <div v-for="city in locations">
-        {{ city.name }}
+    <div v-for="city in locations" :key="city.id">
+        <WeatherInfo :city="city" />
     </div>
 </template>
 
@@ -14,8 +14,6 @@ import { ref } from 'vue';
 import WeatherError from '../components/WeatherError.vue'
 import WeatherInfo from '../components/WeatherInfo.vue'
 import WeatherLoading from '../components/WeatherLoading.vue'
-/* import useWeather from '../hooks/UseWeather' */
-import type Location from '../types/Location'
 import { Cities } from '../types/City';
 
 
@@ -32,4 +30,4 @@ const props = defineProps<{
 
 </script>
 
-<style scoped></style>
+<style  ></style>

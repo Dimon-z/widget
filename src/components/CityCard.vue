@@ -6,9 +6,9 @@
 </template>
 
 <script setup lang='ts'>
-import { } from 'vue';
+
 import { City } from '../types/City';
-import { Weather } from '../types/Weather';
+
 
 
 defineProps<{
@@ -16,10 +16,10 @@ defineProps<{
 }>()
 </script>
 
-<style scoped lang="scss">
+<style  scoped lang="scss">
 div {
     display: flex;
-    width: 250px;
+    width: 300px;
     border: 1px solid black;
     padding: 5px;
     align-content: center;
