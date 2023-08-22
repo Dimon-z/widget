@@ -3,7 +3,7 @@
         <input list="cityList" v-model="cityInput" @keyup="debouncedGetCity"
             @focusout="selectedCity ? emit(`addCity`, selectedCity) : {}">
         <datalist id="cityList">
-            <option v-for="option in options" v-bind:value="option.describe">
+            <option v-for="option in options" v-bind:value="option.describe" :key="option.id">
                 {{ option.describe }}
             </option>
         </datalist>
@@ -26,7 +26,7 @@ const selectedCity = computed(() => {
     return options.value.find((el) => el.describe == cityInput.value)
 })
 
-const debouncedGetCity = _.debounce(getCity, 1200)
+const debouncedGetCity = _.debounce(getCity, 1000)
 
 async function getCity() {
     if (!cityInput.value) {
@@ -38,7 +38,7 @@ async function getCity() {
     const response: Cities = await result.json()
     response.forEach((el, i) => {
         el.describe = `${el.name + ' ' + el.country + ' ' + el.state}`
-        el.id = i
+        el.id = Date.now() + i * 3
     });
     options.value = [...response]
 }

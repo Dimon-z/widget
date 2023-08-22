@@ -1,11 +1,12 @@
 <template >
-    <button @click="openSettings">
-        <img src="../assets/settings.svg" alt="Settings" />
-    </button>
     <div>
         <KeepAlive>
             <component :is="state ? WeatherMain : WeatherSettings" :locations="locations" @addCity="newCity" />
         </KeepAlive>
+        <button @click="openSettings" class="weather-settings">
+            <!-- нужно перенести кнопку в  везер мэйн и щелкать событиями -->
+            <img src="../assets/settings.svg" alt="Settings" />
+        </button>
     </div>
 </template>
 
@@ -61,5 +62,12 @@ button {
 img {
     height: 32px;
     width: 32px;
+}
+
+.weather-settings {
+    position: absolute;
+    top: 10px;
+    left: calc(100vw/4);
+    background-color: rgb(154, 201, 241);
 }
 </style>

@@ -63,4 +63,5 @@ export interface OpenWeather {
     dt: Dt;
     timezone: Timezone;
     name: Name;
+    dewpoint?: number
 }
