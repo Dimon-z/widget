@@ -6,7 +6,8 @@
         <input list="cityList" v-model="cityInput" @keyup="debouncedGetCity"
             @focusout="selectedCity ? emit(`addCity`, selectedCity) : {}">
         <datalist id="cityList">
-            <option v-for="option in options" v-bind:value="option.describe" :key="option.id">
+            <option v-for="option in options" v-bind:value="option.describe" :key="option.id"
+                @deleteCity="emit('deleteCity', $event)">
                 {{ option.describe }}
             </option>
         </datalist>
@@ -48,6 +49,7 @@ defineProps<{
 const emit = defineEmits<{
     (e: 'addCity', city: City): void
     (e: 'settings'): void
+    (e: 'deleteCity', id: City['id']): void
 }>()
 </script>
 
