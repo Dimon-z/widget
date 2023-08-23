@@ -31,11 +31,19 @@
 import { ref } from 'vue';
 import { City } from '../types/City';
 import { OpenWeather } from '../types/Weather';
-const weather = ref<OpenWeather>()
+const weather = ref<OpenWeather>();
 const iconUrl = ref<string>();
+
+
+
 const props = defineProps<{
     city: City
 }>()
+
+const emit = defineEmits<{
+    (e: 'stateChange', state: string): void
+}>()
+
 async function getWeather(city: City): Promise<OpenWeather> {
     const response = await fetch('https://api.openweathermap.org/data/2.5/weather?lat=' + `${city.lat}` + '&lon=' + `${city.lon}` + '&appid=' + `${process.env.OPENWEATHER_API_KEY}` + '&units=metric')
     const result = await response.json()
@@ -46,6 +54,8 @@ getWeather(props.city)
     .then(data => weather.value = data)
     .then(data => weather.value.dewpoint = Math.round((237.7 * dewFunc(+data.main.temp, +data.main.humidity)) / (17.27 - dewFunc(+data.main.temp, +data.main.humidity))))
     .then(data => iconUrl.value = "https://openweathermap.org/img/wn/" + `${weather.value.weather[0].icon}` + "@2x.png")
+    .then()
+
 
 
 </script>

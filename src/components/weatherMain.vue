@@ -5,6 +5,9 @@
         <WeatherError v-else-if="weatherState === 'error'" :="state" />
     </div> -->
     <div v-for="city in locations" :key="city.id">
+        <button @click="emit('settings')" class="weather-settings">
+            <img src="../assets/settings.svg" alt="Settings" />
+        </button>
         <WeatherInfo :city="city" />
     </div>
 </template>
@@ -21,13 +24,31 @@ const weatherState = ref('loading');
 
 //if в локалсторадже насрано то мы не вызываем
 // в локалсторадже храним города в виде координат(зачеркнуто) городов
-const props = defineProps<{
+defineProps<{
     locations: Cities
 }>()
 
+const emit = defineEmits<{
+    (e: 'settings'): void
+}>()
 
-/* useWeather(props.loc) */
 
 </script>
 
-<style  ></style>
+<style scoped  >
+button {
+    cursor: pointer;
+}
+
+img {
+    height: 32px;
+    width: 32px;
+}
+
+.weather-settings {
+    position: absolute;
+    top: 1px;
+    right: 1px;
+    background-color: rgb(154, 201, 241);
+}
+</style>

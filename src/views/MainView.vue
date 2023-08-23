@@ -1,12 +1,9 @@
 <template >
     <div>
         <KeepAlive>
-            <component :is="state ? WeatherMain : WeatherSettings" :locations="locations" @addCity="newCity" />
+            <component :is="state ? WeatherMain : WeatherSettings" :locations="locations" @addCity="newCity"
+                @settings="openSettings" />
         </KeepAlive>
-        <button @click="openSettings" class="weather-settings">
-            <!-- нужно перенести кнопку в  везер мэйн и щелкать событиями -->
-            <img src="../assets/settings.svg" alt="Settings" />
-        </button>
     </div>
 </template>
 
@@ -15,6 +12,8 @@ import { computed, ref } from 'vue';
 import WeatherMain from '../components/WeatherMain.vue'
 import WeatherSettings from '../components/WeatherSettings.vue'
 import { Cities, City } from '../types/City';
+import useGeolocation from '../hooks/UseGeolocation';
+import getCity from '../hooks/getCity';
 
 const state = ref(true)
 const locations = ref<Cities>([{
@@ -40,9 +39,9 @@ const locations = ref<Cities>([{
     "id": 100500
 },])
 
-/* useGeolocation()
-    .then(data => locations.value.push(data))
- */
+useGeolocation()
+    .then(async data => await getCity('reverse', 'lat=' + `${data.latitude}` + '&lon=' + `${data.longitude}`))
+    .then(data => locations.value.push(data[0]))
 function openSettings(): void {
     state.value = !state.value
 }
@@ -54,20 +53,4 @@ function newCity(city: City): void {
 
 </script>
 
-<style scoped >
-button {
-    cursor: pointer;
-}
-
-img {
-    height: 32px;
-    width: 32px;
-}
-
-.weather-settings {
-    position: absolute;
-    top: 10px;
-    left: calc(100vw/4);
-    background-color: rgb(154, 201, 241);
-}
-</style>
+<style scoped ></style>
