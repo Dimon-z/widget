@@ -1,15 +1,17 @@
-# 🚀 Welcome to your new awesome project!
-
-This project has been created using **webpack-cli**, you can now run
-
+Simple weather widget
 ```
 npm run build
 ```
+for building vue app
 
 or
 
 ```
-yarn build
+npm run build-wc
 ```
-
-to bundle your application
+for building like web-component and usage like this
+```
+    <weather-widget />
+    <script defer src="./path_to_script"></script>
+```
+npm install and npm run serve for developing
