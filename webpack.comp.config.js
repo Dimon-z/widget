@@ -47,16 +47,47 @@ const config = {
         exclude: ['/node_modules/'],
       },
       {
-        test: /\.vue$/,
+        test: /\.(vue|ce\.vue)$/,
         loader: 'vue-loader',
+        options: {
+          customElement: true,
+        },
       },
       {
-        test: /\.css$/i,
-        use: [stylesHandler, 'css-loader'],
-      },
-      {
-        test: /\.s[ac]ss$/i,
-        use: [stylesHandler, 'css-loader', 'sass-loader'],
+        test: /\.(css|scss)$/,
+        oneOf: [
+          {
+            resourceQuery: /raw/,
+            use: [
+              'to-string-loader',
+              'css-loader',
+              'postcss-loader',
+              {
+                loader: 'sass-loader',
+                options: {
+                  sassOptions: {
+                    indentedSyntax: false, // Use the SCSS syntax
+                  },
+                },
+              },
+            ],
+          },
+          {
+            use: [
+              'style-loader',
+              'css-loader',
+              'postcss-loader',
+              {
+                loader: 'sass-loader',
+                options: {
+                  sassOptions: {
+                    indentedSyntax: false, // Use the SCSS syntax
+                  },
+                },
+              },
+            ],
+          },
+        ],
       },
       {
         test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/i,

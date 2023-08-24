@@ -21,11 +21,10 @@ const locations = ref<Cities>([])
 
 function chekPositionInLS(): void {
     if (lsIsExist('locations')) {
-        //@ts-ignore
-        locations.value = lsGet('locations')
+        locations.value = lsGet<Cities>('locations')
     } else {
         useGeolocation()
-            .then(async data => await getCity('reverse', 'lat=' + `${data.latitude}` + '&lon=' + `${data.longitude}`))
+            .then(data => getCity('reverse', 'lat=' + `${data.latitude}` + '&lon=' + `${data.longitude}`))
             .then(data => locations.value.push(data[0]))
             .then(() => lsSet('locations', locations.value))
     }

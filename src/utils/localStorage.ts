@@ -1,6 +1,6 @@
 import { Ref } from "vue"
 
-function lsGet(key: string): unknown {
+function lsGet<T>(key: string): T {
     return JSON.parse(localStorage.getItem(key))
 }
 
@@ -15,14 +15,15 @@ function lsSet(key: string, data: unknown): void {
 
 
 
-function lsListeningToUpdates(reactiveItemToUpdate: Ref<unknown>, listeningKey: string) {
+function lsListeningToUpdates<T>(reactiveItemToUpdate: Ref<T>, listeningKey: string) {
     const listener = (event: StorageEvent) => {
         if (!(event.storageArea === localStorage && event.key === listeningKey)) {
             return
         }
-        reactiveItemToUpdate.value = lsGet(listeningKey)
+        reactiveItemToUpdate.value = lsGet<T>(listeningKey)
     }
     window.addEventListener('storage', listener)
+    return window.removeEventListener('storage', listener)
 }
 
 function lsIsExist(key: string): boolean {

@@ -11,7 +11,7 @@
     "style-loader": "^3.3.3",
     "ts-loader": "^9.4.4",
     "typescript": "^5.1.6",
-    "vue-loader": "^16.5",
+    "vue-loader": "<16.6.0 ^16.5.0",
     "webpack": "^5.88.2",
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^4.11.1"
@@ -24,10 +24,13 @@
     "build:dev": "webpack --mode=development",
     "build:prod": "webpack --mode=production --node-env=production",
     "watch": "webpack --watch",
-    "serve": "webpack serve"
+    "serve": "webpack serve",
+    "build-wc": "vue-cli-service build --target wc --name WeatherWidget src/components/*.vue"
   },
   "dependencies": {
     "lodash.debounce": "^4.0.8",
-    "vue": "^3.3.4"
+    "postcss-loader": "^7.3.3",
+    "vue": "^3.3.4",
+    "vue-web-component-wrapper": "^1.1.1"
   }
 }

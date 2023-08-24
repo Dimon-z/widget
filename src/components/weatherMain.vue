@@ -19,7 +19,6 @@ import WeatherInfo from '../components/WeatherInfo.vue'
 import WeatherLoading from '../components/WeatherLoading.vue'
 import { Cities } from '../types/City';
 
-
 const weatherState = ref('loading');
 
 //if в локалсторадже насрано то мы не вызываем
