@@ -7,12 +7,13 @@
 <script setup lang='ts'>
 import MainView from './views/MainView.vue';
 
-//написать енам для стейта
 </script>
 
-<style>
+<style lang="scss">
 .wrap {
-    background-color: black,
+    width: $app-width;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 120%;
 }
 </style>
 

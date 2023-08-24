@@ -1,9 +1,9 @@
 <template >
     <div>
-        <img src="../assets/settings.svg" alt="Settings" />
-        City : {{ city.name }} , Country : {{ city.country }}
+        <img src="../assets/grip.svg" alt="Settings" />
+        City : {{ city.name }},<br> Country : {{ city.country }}
         <button @click="emit('deleteCity', city.id)">
-            <img src=" ../assets/settings.svg" alt="Settings" />
+            <img src="../assets/delete.svg" alt="Settings" />
         </button>
     </div>
 </template>
@@ -27,14 +27,22 @@ const emit = defineEmits<{
 <style  scoped lang="scss">
 div {
     display: flex;
-    width: 300px;
-    border: 1px solid black;
-    padding: 5px;
-    align-content: center;
-}
+    min-height: 40px;
+    width: $app-width;
+    max-width: 400px;
+    border-top: 1px solid black;
 
-img {
-    height: 24px;
-    width: 24px;
+    align-content: flex-start;
+
+    img {
+        align-self: center;
+        height: 24px;
+        width: 24px;
+    }
+
+    button {
+        align-self: center;
+        margin-left: auto;
+    }
 }
 </style>

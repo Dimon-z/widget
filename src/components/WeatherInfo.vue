@@ -65,13 +65,25 @@ getWeather(props.city)
     display: block;
     min-width: 200px;
     max-width: 400px;
-    width: 30vw;
-    margin: 5px;
-    padding: 5px;
-    background-color: rgb(154, 201, 241);
-    border: 1px solid black;
-    border-radius: 10px;
+    width: $app-width;
+    margin-bottom: 5px;
+
     font: 1.1em sans-serif;
+
+    h1 {
+        margin: 0 auto;
+        font-size: 130%;
+        text-transform: capitalize;
+        text-align: center;
+    }
+
+    img {
+        height: 80px;
+    }
+
+    p {
+        margin: 10px;
+    }
 }
 
 .icon__wrapper {
@@ -80,17 +92,8 @@ getWeather(props.city)
     flex-wrap: wrap;
 
     &-text {
-        font-size: 60px;
+        font-size: 40px;
         text-align: center;
     }
-}
-
-p {
-    margin: 15px;
-}
-
-h1 {
-    text-transform: capitalize;
-    text-align: center;
 }
 </style>

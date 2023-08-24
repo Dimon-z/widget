@@ -65,6 +65,9 @@ const config = {
               {
                 loader: 'sass-loader',
                 options: {
+                  additionalData: `
+                  @import "./src/style/_variables.scss";
+                `,
                   sassOptions: {
                     indentedSyntax: false, // Use the SCSS syntax
                   },
@@ -80,6 +83,9 @@ const config = {
               {
                 loader: 'sass-loader',
                 options: {
+                  additionalData: `
+                  @import "./src/style/_variables.scss";
+                `,
                   sassOptions: {
                     indentedSyntax: false, // Use the SCSS syntax
                   },

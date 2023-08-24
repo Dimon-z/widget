@@ -1,4 +1,7 @@
 <template >
+    <div v-for="city in locations" class="cityCards" :key="city.id">
+        <cityCard :city="city" />
+    </div>
     <div>
         <input list="cityList" v-model="cityInput" @keyup="debouncedGetCity"
             @focusout="selectedCity ? emit(`addCity`, selectedCity) : {}">
@@ -8,9 +11,6 @@
                 {{ option.describe }}
             </option>
         </datalist>
-    </div>
-    <div v-for="city in locations" class="cityCards" :key="city.id">
-        <cityCard :city="city" />
     </div>
 </template>
 
@@ -45,32 +45,39 @@ defineProps<{
 
 const emit = defineEmits<{
     (e: 'addCity', city: City): void
-    (e: 'settings'): void
     (e: 'deleteCity', id: City['id']): void
 }>()
 </script>
 
-<style scoped   lang="scss">
+<style scoped lang="scss">
+h1 {
+    border: 1px solid black;
+}
+
 .cityCards {
     display: flex;
     flex-direction: column;
 }
 
 div {
-    color: rgb(27, 19, 70);
+    display: flex;
+
 
     input {
-        width: 300px;
-        padding: 4px;
+        min-height: 40px;
+        border: solid 1px black;
+        border-radius: 0 0 12px 12px;
+        width: 100%;
     }
 }
 
 button {
     cursor: pointer;
+    border-radius: 5px;
 }
 
 img {
-    height: 32px;
-    width: 32px;
+    height: $icon-height;
+    width: $icon-width;
 }
 </style>

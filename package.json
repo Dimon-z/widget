@@ -25,11 +25,12 @@
     "build:prod": "webpack --mode=production --node-env=production",
     "watch": "webpack --watch",
     "serve": "webpack serve",
-    "build-wc": "vue-cli-service build --target wc --name WeatherWidget src/components/*.vue"
+    "build-wc": "webpack --config ./webpack.WC.config.js"
   },
   "dependencies": {
     "lodash.debounce": "^4.0.8",
     "postcss-loader": "^7.3.3",
+    "to-string-loader": "^1.2.0",
     "vue": "^3.3.4",
     "vue-web-component-wrapper": "^1.1.1"
   }

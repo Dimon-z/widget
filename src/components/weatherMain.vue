@@ -1,11 +1,8 @@
 <template >
-    <!-- <div v-for="state in weather" key="id">
-        <WeatherLoading v-if="weatherState === 'loading'" />
-        <WeatherInfo v-else-if="weatherState === 'sucess'" :="state" />
-        <WeatherError v-else-if="weatherState === 'error'" :="state" />
-    </div> -->
-    <div v-for="city in locations" :key="city.id">
-        <WeatherInfo :city="city" />
+    <div class="wrap">
+        <div class="weather-info__wrapper" v-for="city in locations" :key="city.id">
+            <WeatherInfo :city="city" />
+        </div>
     </div>
 </template>
 
@@ -18,8 +15,6 @@ import { Cities } from '../types/City';
 
 const weatherState = ref('loading');
 
-//if в локалсторадже насрано то мы не вызываем
-// в локалсторадже храним города в виде координат(зачеркнуто) городов
 defineProps<{
     locations: Cities
 }>()
@@ -31,4 +26,11 @@ const emit = defineEmits<{
 
 </script>
 
-<style scoped  ></style>
+<style scoped lang="scss">
+.weather-info__wrapper {
+    border-top: 1px solid rgb(0, 0, 0);
+    width: $app-width;
+    min-width: 200px;
+    max-width: 400px;
+}
+</style>

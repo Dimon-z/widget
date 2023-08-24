@@ -1,8 +1,15 @@
 <template >
-    <div>
-        <button @click="openSettings" class="weather-settings">
-            <img src="../assets/settings.svg" alt="Settings" />
-        </button>
+    <div class="wrapper">
+        <div class="wrapper-header">
+            <h1>
+                Settings
+            </h1>
+            <div>
+                <button @click="openSettings" class="weather-settings">
+                    <img src="../assets/settings.svg" alt="Settings" />
+                </button>
+            </div>
+        </div>
         <KeepAlive>
             <component :is="state ? WeatherMain : WeatherSettings" :locations="locations" @addCity="newCity"
                 @settings="openSettings" @deleteCity="deleteCity" />
@@ -11,7 +18,7 @@
 </template>
 
 <script setup lang='ts'>
-import { computed, ref } from 'vue';
+import { ref } from 'vue';
 import WeatherMain from '../components/WeatherMain.vue'
 import WeatherSettings from '../components/WeatherSettings.vue'
 import { Cities, City } from '../types/City';
@@ -51,20 +58,41 @@ function newCity(city: City): void {
 
 </script>
 
-<style scoped >
+<style scoped lang="scss">
+.wrapper {
+    width: $app-width;
+    border: 1px solid black;
+    border-radius: 16px;
+    background-color: $app-background-color;
+    min-width: 200px;
+    max-width: 400px;
+
+    &-header {
+        display: flex;
+        justify-content: space-between;
+    }
+}
+
 button {
     cursor: pointer;
 }
 
 img {
-    height: 32px;
-    width: 32px;
+    height: 30px;
+    width: 30px;
+}
+
+h1 {
+    padding-left: 16px;
+    align-self: flex-start;
 }
 
 .weather-settings {
-    position: absolute;
-    top: 10px;
-    left: calc(1/4*100vw);
-    background-color: rgb(154, 201, 241);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: $icon-width ;
+    height: $icon-height ;
+    border-radius: $app-border-radius;
 }
 </style>
