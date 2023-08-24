@@ -1,8 +1,5 @@
 <template >
     <div>
-        <button @click="emit('settings')" class="weather-settings">
-            <img src="../assets/settings.svg" alt="Settings" />
-        </button>
         <input list="cityList" v-model="cityInput" @keyup="debouncedGetCity"
             @focusout="selectedCity ? emit(`addCity`, selectedCity) : {}">
         <datalist id="cityList">
@@ -75,12 +72,5 @@ button {
 img {
     height: 32px;
     width: 32px;
-}
-
-.weather-settings {
-    position: absolute;
-    top: 10px;
-    left: calc(100vw/4);
-    background-color: rgb(154, 201, 241);
 }
 </style>

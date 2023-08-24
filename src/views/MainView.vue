@@ -1,5 +1,8 @@
 <template >
     <div>
+        <button @click="openSettings" class="weather-settings">
+            <img src="../assets/settings.svg" alt="Settings" />
+        </button>
         <KeepAlive>
             <component :is="state ? WeatherMain : WeatherSettings" :locations="locations" @addCity="newCity"
                 @settings="openSettings" @deleteCity="deleteCity" />
@@ -48,4 +51,20 @@ function newCity(city: City): void {
 
 </script>
 
-<style scoped ></style>
+<style scoped >
+button {
+    cursor: pointer;
+}
+
+img {
+    height: 32px;
+    width: 32px;
+}
+
+.weather-settings {
+    position: absolute;
+    top: 10px;
+    left: calc(1/4*100vw);
+    background-color: rgb(154, 201, 241);
+}
+</style>
