@@ -45,13 +45,12 @@ function handleAddCity(city: City) {
 }
 
 async function getCityByName() {
-    const result = await getCity(`direct`, cityInput.value.trim())
+    const result = await getCity(`direct`, cityInput.value)
     options.value = [...result]
-    console.log(options.value[0])
 }
 
 function handleGetCity() {
-    if (!cityInput.value && !cityInput.value.trim()) {
+    if (!cityInput.value) {
         options.value = []
         return
     }
