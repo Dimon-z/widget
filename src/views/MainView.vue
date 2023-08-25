@@ -11,20 +11,20 @@
             </div>
         </div>
         <KeepAlive>
-            <component :is="state ? WeatherMain : WeatherSettings" :locations="locations" @addCity="newCity"
-                @settings="openSettings" @deleteCity="deleteCity" />
+            <component :is="state ? WeatherMain : WeatherSettings" :locations="locations" />
         </KeepAlive>
     </div>
 </template>
 
 <script setup lang='ts'>
-import { ref } from 'vue';
+import { provide, ref } from 'vue';
 import WeatherMain from '../components/WeatherMain.vue'
 import WeatherSettings from '../components/WeatherSettings.vue'
 import { Cities, City } from '../types/City';
 import useGeolocation from '../hooks/UseGeolocation';
 import getCity from '../hooks/getCity';
 import { lsGet, lsSet, lsListeningToUpdates, lsIsExist } from '../utils/localStorage'
+import { CityKey } from '../types/injection-key';
 
 const state = ref(true)
 const locations = ref<Cities>([])
@@ -40,8 +40,9 @@ function chekPositionInLS(): void {
     }
 }
 
-function deleteCity() {
-    //писать тут или юзнуть провайд инжект
+function deleteCity(id: City[`id`]): void {
+    console.log(id)
+    locations.value.filter
 }
 
 chekPositionInLS()
@@ -50,11 +51,12 @@ function openSettings(): void {
     state.value = !state.value
 }
 
-function newCity(city: City): void {
+function addCity(city: City): void {
     locations.value.push(city)
     lsSet('locations', locations.value)
 }
 
+provide(CityKey, { locations, deleteCity, addCity })
 
 </script>
 

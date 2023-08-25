@@ -7,3 +7,4 @@ declare module '*.vue' {
 declare module "*.svg";
 declare module "*.css";
 declare module "*.css?raw";
+declare module 'vue-web-component-wrapper'

@@ -1,13 +1,12 @@
 <template >
-    <div v-for="city in locations" class="cityCards" :key="city.id">
+    <div v-for="city in locations" class="cityCards" :key="city.id" draggable="true">
         <cityCard :city="city" />
     </div>
     <div>
         <input list="cityList" v-model="cityInput" @keyup="debouncedGetCity"
-            @focusout="selectedCity ? emit(`addCity`, selectedCity) : {}">
+            @focusout="selectedCity ? addCity(selectedCity) : {}">
         <datalist id="cityList">
-            <option v-for="option in options" v-bind:value="option.describe" :key="option.id"
-                @deleteCity="emit('deleteCity', $event)">
+            <option v-for="option in options" v-bind:value="option.describe" :key="option.id">
                 {{ option.describe }}
             </option>
         </datalist>
@@ -15,16 +14,18 @@
 </template>
 
 <script setup lang='ts'>
-import { computed, ref } from 'vue';
+import { computed, ref, inject } from 'vue';
 import { City, Cities } from '../types/City';
 import _ from 'lodash'
 import cityCard from './CityCard.vue'
 import getCity from '../hooks/getCity';
+import { CityKey } from '../types/injection-key';
 
 const cityInput = ref<string>()
 const options = ref([])
+const { locations, addCity } = inject(CityKey)
 
-const selectedCity = computed(() => {
+const selectedCity = computed<City>(() => {
     return options.value.find((el) => el.describe == cityInput.value)
 })
 
@@ -39,14 +40,13 @@ async function getCityByName() {
     options.value = [...result]
 }
 
+
+
 defineProps<{
     locations: Cities
 }>()
 
-const emit = defineEmits<{
-    (e: 'addCity', city: City): void
-    (e: 'deleteCity', id: City['id']): void
-}>()
+
 </script>
 
 <style scoped lang="scss">
