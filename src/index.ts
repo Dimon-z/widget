@@ -6,8 +6,9 @@ import { createWebComponent } from 'vue-web-component-wrapper';
 import '/src/style/reset.css'
 
 
-createApp(App).mount('#app')
 
+createApp(App)
+    .mount('#app')
 createWebComponent({
     rootComponent: App,
     elementName: 'weather-widget',
