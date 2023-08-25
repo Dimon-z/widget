@@ -27,9 +27,7 @@ function lsListeningToUpdates<T>(reactiveItemToUpdate: Ref<T>, listeningKey: str
     return window.removeEventListener('storage', listener)
 }
 
-function isType<T>(obj: any): obj is T {
-    return true
-}
+
 
 function lsIsExist<T>(key: string): boolean {
     if (localStorage[key] && (lsGet<T>(key))) {

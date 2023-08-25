@@ -29,7 +29,7 @@ import { CityKey } from '../types/injection-key';
 const state = ref(true)
 const locations = ref<Cities>([])
 
-function chekPositionInLS(): void {
+function chekCitiesInLS(): void {
     if (lsIsExist<Cities>('locations') && (lsGet<Cities>('locations').length > 0)) {
         locations.value = lsGet<Cities>('locations')
     } else {
@@ -45,7 +45,7 @@ function deleteCity(id: City[`id`]): void {
     lsSet('locations', locations.value)
 }
 
-chekPositionInLS()
+chekCitiesInLS()
 
 function openSettings(): void {
     state.value = !state.value
@@ -53,7 +53,7 @@ function openSettings(): void {
 
 function addCity(city: City): void {
     if (locations.value.some((el) => el.describe === city.describe)) {
-        return
+        return alert('This city already in list')
     }
     locations.value.push(city)
     lsSet('locations', locations.value)

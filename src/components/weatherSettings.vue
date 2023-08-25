@@ -3,13 +3,14 @@
         <cityCard :city="city" />
     </div>
     <div>
-        <input list="cityList" v-model="cityInput" @keyup="debouncedGetCity" @keyup.enter="addCity1($event, selectedCity)">
+        <input ref="input" list="cityList" v-model="cityInput" @keyup="debouncedGetCity"
+            @keyup.enter="handleAddCity(selectedCity)">
         <datalist id="cityList">
             <option v-for="option in options" v-bind:value="option.describe" :key="option.id">
                 {{ option.describe }}
             </option>
         </datalist>
-        <button @click=" addCity1(selectedCity)">&#9989;</button>
+        <button @click="handleAddCity(selectedCity)">&#9989;</button>
     </div>
 </template>
 
@@ -21,7 +22,7 @@ import cityCard from './CityCard.vue'
 import getCity from '../hooks/getCity';
 import { CityKey } from '../types/injection-key';
 
-
+const input = ref(null)
 const cityInput = ref<string>()
 const options = ref([])
 const { locations, addCity } = inject(CityKey)
@@ -29,14 +30,17 @@ const debouncedGetCity = _.debounce(getCityByName, 1000)
 
 
 const selectedCity = computed<City>(() => {
-    return options.value.find((el) => el.describe == cityInput.value)
+    return options.value.length > 0 ? options.value.find((el) => el.describe == cityInput.value) : ''
 })
 
-function addCity1(event: Event, city: City) {
+function handleAddCity(city: City) {
+    const target = input.value as HTMLInputElement
+    target.blur()
+    setTimeout(() => {
+        target.value = ''
+    }, 1000);
     if (!city) {
-        const target = event.target as HTMLInputElement
-        target.blur()
-        return alert('ented or choose valid city')
+        return alert('ented and choose valid city')
     }
     addCity(city)
 }
