@@ -41,7 +41,6 @@ function chekPositionInLS(): void {
 }
 
 function deleteCity(id: City[`id`]): void {
-    console.log(id)
     locations.value = locations.value.filter((el) => !(el.id === id))
     lsSet('locations', locations.value)
 }

@@ -3,13 +3,13 @@
         <cityCard :city="city" />
     </div>
     <div>
-        <input list="cityList" v-model="cityInput" @keyup="debouncedGetCity">
+        <input list="cityList" v-model="cityInput" @keyup="debouncedGetCity" @keyup.enter="addCity1($event, selectedCity)">
         <datalist id="cityList">
             <option v-for="option in options" v-bind:value="option.describe" :key="option.id">
                 {{ option.describe }}
             </option>
         </datalist>
-        <button @click="selectedCity ? addCity(selectedCity) : {}">&#9989;</button>
+        <button @click=" addCity1(selectedCity)">&#9989;</button>
     </div>
 </template>
 
@@ -32,6 +32,14 @@ const selectedCity = computed<City>(() => {
     return options.value.find((el) => el.describe == cityInput.value)
 })
 
+function addCity1(event: Event, city: City) {
+    if (!city) {
+        const target = event.target as HTMLInputElement
+        target.blur()
+        return alert('ented or choose valid city')
+    }
+    addCity(city)
+}
 
 async function getCityByName() {
     if (!cityInput.value) {
