@@ -13,7 +13,9 @@ import { CityKey } from '../types/injection-key';
 import { City } from '../types/City';
 import { inject } from 'vue';
 
+
 const { deleteCity } = inject(CityKey)
+
 
 defineProps<{
     city: City

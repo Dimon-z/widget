@@ -3,13 +3,13 @@
         <cityCard :city="city" />
     </div>
     <div>
-        <input list="cityList" v-model="cityInput" @keyup="debouncedGetCity"
-            @focusout="selectedCity ? addCity(selectedCity) : {}">
+        <input list="cityList" v-model="cityInput" @keyup="debouncedGetCity">
         <datalist id="cityList">
             <option v-for="option in options" v-bind:value="option.describe" :key="option.id">
                 {{ option.describe }}
             </option>
         </datalist>
+        <button @click="selectedCity ? addCity(selectedCity) : {}">&#9989;</button>
     </div>
 </template>
 
@@ -21,15 +21,17 @@ import cityCard from './CityCard.vue'
 import getCity from '../hooks/getCity';
 import { CityKey } from '../types/injection-key';
 
+
 const cityInput = ref<string>()
 const options = ref([])
 const { locations, addCity } = inject(CityKey)
+const debouncedGetCity = _.debounce(getCityByName, 1000)
+
 
 const selectedCity = computed<City>(() => {
     return options.value.find((el) => el.describe == cityInput.value)
 })
 
-const debouncedGetCity = _.debounce(getCityByName, 1000)
 
 async function getCityByName() {
     if (!cityInput.value) {
@@ -66,8 +68,15 @@ div {
     input {
         min-height: 40px;
         border: solid 1px black;
-        border-radius: 0 0 12px 12px;
+        border-right: none;
+        border-radius: 0 0 0 12px;
         width: 100%;
+    }
+
+    button {
+        border: 1px solid black;
+        border-left: none;
+        border-radius: 0 0 12px 0;
     }
 }
 

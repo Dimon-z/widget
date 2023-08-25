@@ -1,13 +1,14 @@
 import { Ref } from "vue"
 
+
 function lsGet<T>(key: string): T {
     return JSON.parse(localStorage.getItem(key))
 }
 
-function lsSet(key: string, data: unknown): void {
-    data = JSON.stringify(data)
-    if (typeof (data) === 'string') {
-        localStorage.setItem(key, data)
+function lsSet<T>(key: string, data: T): void {
+    const jsonString = JSON.stringify(data)
+    if (typeof (jsonString) === 'string') {
+        localStorage.setItem(key, jsonString)
         return
     }
     throw new Error('Local Storage Error')
@@ -26,11 +27,16 @@ function lsListeningToUpdates<T>(reactiveItemToUpdate: Ref<T>, listeningKey: str
     return window.removeEventListener('storage', listener)
 }
 
-function lsIsExist(key: string): boolean {
-    if (localStorage[key]) {
+function isType<T>(obj: any): obj is T {
+    return true
+}
+
+function lsIsExist<T>(key: string): boolean {
+    if (localStorage[key] && (lsGet<T>(key))) {
         return true
     }
     return false
 }
+
 
 export { lsGet, lsSet, lsListeningToUpdates, lsIsExist }

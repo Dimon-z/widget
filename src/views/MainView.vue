@@ -30,7 +30,7 @@ const state = ref(true)
 const locations = ref<Cities>([])
 
 function chekPositionInLS(): void {
-    if (lsIsExist('locations')) {
+    if (lsIsExist<Cities>('locations') && (lsGet<Cities>('locations').length > 0)) {
         locations.value = lsGet<Cities>('locations')
     } else {
         useGeolocation()
@@ -42,7 +42,8 @@ function chekPositionInLS(): void {
 
 function deleteCity(id: City[`id`]): void {
     console.log(id)
-    locations.value.filter
+    locations.value = locations.value.filter((el) => !(el.id === id))
+    lsSet('locations', locations.value)
 }
 
 chekPositionInLS()
@@ -52,6 +53,9 @@ function openSettings(): void {
 }
 
 function addCity(city: City): void {
+    if (locations.value.some((el) => el.describe === city.describe)) {
+        return
+    }
     locations.value.push(city)
     lsSet('locations', locations.value)
 }
